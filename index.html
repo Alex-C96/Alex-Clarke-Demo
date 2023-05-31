@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
+    <title>ArcGIS JavaScript Map</title>
+    <style>
+      html, body, #viewDiv {
+        padding: 0;
+        margin: 0;
+        height: 100%;
+        width: 100%;
+      }
+    </style>
+    <link rel="stylesheet" href="app.css">
+    <link rel="stylesheet" href="https://js.arcgis.com/4.18/esri/themes/light/main.css">
+    <script src="https://js.arcgis.com/4.18/"></script>
+    <script>
+      require([
+        "esri/Map",
+        "esri/views/MapView"
+      ], function(Map, MapView) {
+        let map = new Map({
+          basemap: "streets-vector"
+        });
+        let view = new MapView({
+          container: "viewDiv",
+          map: map,
+          zoom: 4,
+          center: [15, 65] // longitude, latitude
+        });
+
+        let basemapSelect = document.getElementById('basemapSelect');
+        basemapSelect.addEventListener('change', function() {
+            map.basemap = basemapSelect.value;
+        });
+      });
+    </script>
+  </head>
+  <body>
+    <div class="nav">
+        <ul>
+            <li><img src="globe-icon.png" alt="globe image" height="50" width="50" /></li>
+            <li><a href="#" class="nav-link">Home</a></li>
+            <li><a href="#" class="nav-link">FAQ</a></li>
+            <li><a href="#" class="nav-link">Map</a></li>
+            <li><a href="#" class="nav-link">Contact Us</a></li>
+        </ul>
+        <select name="style" id="basemapSelect">
+            <option value="topo-vector">Topography</option>
+            <option value="dark-gray-vector">Dark Gray</option>
+            <option value="terrain">Terrain</option>
+            <option value="streets-vector">Streets</option>
+        </select>
+    </div>
+    <div id="viewDiv"></div>
+  </body>
+</html>
